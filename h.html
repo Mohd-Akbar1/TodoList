@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todos</title>
+    <style>
+        *{
+         margin: 0;
+         padding: 0;
+            
+        }
+        .completed {
+        text-decoration: line-through;
+        
+    }
+       
+        .main{
+            height: 100vh;
+            width: 100vw;
+           background-color: lightgoldenrodyellow;
+        }
+        .todos{
+            width: 600px;
+            margin: auto;
+        }
+        #taskList{
+            width: 500px;
+            
+            margin: auto;
+
+        }.marked{
+            text-decoration: line-through;
+        }
+        li:hover{
+            cursor: pointer;
+            
+        }
+        li{
+            position: relative;
+            margin: 10px 0;
+            border: 1px solid rgba(0, 0, 0, 0.121);
+            border-radius: 4px;
+            padding-left: 40px ;
+            padding-top: 15px;
+            min-height: 40px;
+            list-style: none;
+            background-color:white;
+            overflow-y: auto;
+            color: black;
+            font-size: 20px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+        }
+       .del{
+            position: absolute;
+            right: 5px;
+            width: 30px;
+            /* padding: 5px 10px; */
+            /* border: none;
+            background: transparent;
+            */
+            
+        }
+        .ed{
+            position: absolute;
+            right: 50px;
+            width: 25px;
+            padding-top: 2px;
+            background: transparent;
+            /* padding: 5px 10px; */
+            /* border: none;
+            background: transparent; */
+           
+        } 
+        h1{
+            font-size: 30px;
+            text-align: center;
+            font-size: 50px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            padding-top: 100px;
+            color: rgba(0, 0, 0, 0.652);
+        }
+        input[type='text']{
+            width: 400px;
+            height: 40px;
+            border-radius: 4px;
+            padding-left: 10px;
+            border: none; 
+            outline: none;
+
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+            
+           
+        }
+        .check{
+            position: absolute;
+            left: 12px;
+           
+            top: 50%;
+            
+            transform: translate(-50%, -50%);
+        }
+        .inputs{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .inputs button{
+            background-color: blue;
+            height: 40px;
+            color: white;
+            padding: 4px 8px;
+            margin: 4px;
+            border-radius: 4px ;
+            font-weight: bold;
+            border: none;
+            outline: none;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+        }
+        .inputs button:active{
+            transform: scale(0.9);
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+    <div class="todos">
+        <h1>Todos</h1>
+        <div class="inputs">
+            <input autofocus type="text" name="text" id="taskInput" placeholder="Enter Task..." >
+        
+        <button onclick="Addtask()">Add Task</button>
+        </div>
+        
+
+    </div>
+    <ul id="taskList">
+
+    </ul>
+</div>
+    <script>
+        //function to add task
+        var taskList=document.getElementById('taskList')
+        function Addtask(){
+            var taskInput=document.getElementById('taskInput')
+            console.log(taskInput.value)
+            
+
+            if (taskInput.value==''){
+                alert('Please add something !')
+                return;
+                
+            }
+            var li=document.createElement('li');
+            var textNode=document.createTextNode(taskInput.value)
+            li.className='tasks'
+            li.appendChild(textNode)
+
+                var editButton=document.createElement('img')
+                editButton.src='https://cdn-icons-png.flaticon.com/128/1828/1828911.png';
+                editButton.className='ed'
+                editButton.onclick=function(){
+                    editTask(li)
+                }
+                li.appendChild(editButton)
+
+                  
+
+                var deleteButton=document.createElement('img');
+                deleteButton.src='https://cdn-icons-png.flaticon.com/128/3405/3405244.png'
+                deleteButton.className='del'
+                
+
+                deleteButton.onclick=function(){
+                    DeleTasks(li)
+                }
+                li.appendChild(deleteButton)
+
+        var checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.className='check'
+        checkbox.onclick = function() {
+            toggleCompleted(li, checkbox);
+        };
+        li.appendChild(checkbox);
+
+        taskList.appendChild(li);
+
+             taskList.appendChild(li)
+
+
+        taskInput.value=''
+        // toggling()
+    }
+
+    function editTask(taskElement) {
+        var newText = prompt("Edit task:", taskElement.firstChild.textContent);
+        if (newText !== null) {
+            taskElement.firstChild.textContent = newText;
+        }
+    }
+    function DeleTasks(taskDelete){
+        taskDelete.parentNode.removeChild(taskDelete)
+    }
+// function toggling(){
+//     let x=document.querySelectorAll('.tasks')
+//     x.forEach((ele)=>{
+//         ele.addEventListener('click',function(){
+            
+//             ele.classList.toggle('marked')
+//         })
+//     })
+// console.log(x)
+// }
+
+function toggleCompleted(taskElement, checkbox) {
+        if (checkbox.checked) {
+            taskElement.classList.add("completed");
+        } else {
+            taskElement.classList.remove("completed");
+        }
+    }
+   
+       
+    </script>
+</body>
+</html>
